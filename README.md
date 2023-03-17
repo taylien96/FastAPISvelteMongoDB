@@ -1,0 +1,2 @@
+# FastAPISvelteMongoDB
+getting familiar
