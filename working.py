@@ -1,17 +1,24 @@
+#to start uvicorn working:app --reload
+
 from fastapi import FastAPI, Path, Query, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
-from pydantic import BaseModel
+from database import Item, UpdateItem
+
+
+
 
 app = FastAPI()
+origins = ['https://localhost:3000']
 
-class Item(BaseModel):
-    name: str
-    price: float
-    brand: Optional[str] = None
-class UpdateItem(BaseModel):
-    name: Optional[str] = None
-    price: Optional[float] = None
-    brand: Optional[str] = None
+app.add_middleware(
+    CORSMiddleware, 
+    allow_origins=origins,
+    allow_credentials = True,
+    allow_methods=['*'],
+    allow_headers={'*'}
+)
+
 inventory = {
     
 }
