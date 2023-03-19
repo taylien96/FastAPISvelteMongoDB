@@ -3,12 +3,22 @@
 from fastapi import FastAPI, Path, Query, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
-from database import Item, UpdateItem
+from model import Item, UpdateItem, Todo
 
 
 
 
 app = FastAPI()
+
+from database import(
+    fetch_all_todos,
+    fetch_one_movie,
+    fetch_one_todo,
+    create_todo,
+    update_todo,
+    remove_todo
+)
+
 origins = ['https://localhost:3000']
 
 app.add_middleware(
@@ -26,6 +36,53 @@ inventory = {
 @app.get("/")
 def home():
     return {"Data": "Test"}
+
+
+@app.get("/api/todo")
+async def get_todo():
+    response = await fetch_all_todos()
+    return response
+
+@app.get("/api/todo/{title}", response_model=Todo)
+async def get_todo(title: str):
+    response = await fetch_one_todo(title)
+    if response:
+        return response
+    raise HTTPException(404, f"no todo item with {title}")
+
+#response model helps the program know what we should be sending back!
+@app.post('/api/todo', response_model=Todo)
+async def post_todo(todo:Todo):
+        response = await create_todo(todo.dict())
+        if response:
+            return response
+        raise HTTPException(400, "something went wrong, bad request")
+
+@app.put('/api/todo/{title}', response_model=Todo)
+async def put_todo(title:str, desc:str):
+    response = await update_todo(id, title, desc)
+    if response:
+        return response
+    raise HTTPException(404, f"couldnt find the todo mate")
+
+
+@app.delete("/api/todo/{title}")
+async def delete_todo(title: str):
+    response = await remove_todo(id)
+    if response:
+        return {'response' : 'deleted'}
+    raise HTTPException(400, "it fricked up")
+
+
+
+
+
+
+
+
+
+
+
 
 @app.get("/about/{item_id}")
 def about(item_id: int = Path(None, description="The Id of the item you want")):
