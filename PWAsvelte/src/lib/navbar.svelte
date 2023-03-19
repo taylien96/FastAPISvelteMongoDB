@@ -132,6 +132,8 @@ text-decoration: inherit;
 }
 
 /* Show the dropdown menu on hover */
-
+.dropdown:hover .dropdown-content {
+  display: inline;
+} 
   </style>
   
