@@ -29,6 +29,7 @@
             <input type="password" id="password" name="password" bind:value={password}>
           </div>
           <button type="submit">Submit</button>
+          <button class="sign-up">Sign up</button>
         </div>
       </form>
     </div>
@@ -79,8 +80,13 @@
       border: 1px solid #ccc;
       border-radius: 3px;
     }
-  
-    button[type="submit"] {
+    .sign-up {
+        align-self: self-end;
+        border: #333 solid 1px;
+        color: #333;
+        background-color: transparent;
+    }
+    button {
       background-color: #333;
       color: #fff;
       padding: 5px 10px;
@@ -89,7 +95,7 @@
       cursor: pointer;
     }
   
-    button[type="submit"]:hover {
+    button:hover {
       background-color: #444;
     }
   </style>
