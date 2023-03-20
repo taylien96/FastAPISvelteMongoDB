@@ -11,6 +11,9 @@ dbTodo = client.TodoList
 collectionTodo = dbTodo.todo
 dbMovie = client.sample_mflix
 collectionMovie = dbMovie.movies
+dbUsers = client.Users
+collectionUsers = dbUsers.profiles
+collectionSessions =dbUsers.sessions
 
 
 async def fetch_one_todo(title):
@@ -44,6 +47,6 @@ async def update_todo(title, desc):
     print(document)
     return document
 
-async def remove_todo(id):
+async def remove_todo(title):
     await collectionTodo.delete_one({"title": title})
     return {"success" : "true"}
