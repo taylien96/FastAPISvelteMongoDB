@@ -15,7 +15,8 @@ class UpdateItem(BaseModel):
     price: Optional[float] = None
     brand: Optional[str] = None
 
-class User(BaseModel):
+class UserBase(BaseModel):
     username = str
+
+class UserIn(UserBase):
     password = str
-    

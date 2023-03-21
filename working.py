@@ -1,10 +1,10 @@
 #to start uvicorn working:app --reload
 
-from fastapi import FastAPI, Path, Query, HTTPException, status
+from fastapi import FastAPI, Path, Query, HTTPException, status, Body
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
-from model import Item, UpdateItem, Todo
-
+from model import Item, UpdateItem, Todo, UserBase, UserIn
+from auth.jwt_handler import signJWT
 
 
 
@@ -37,6 +37,9 @@ inventory = {
 def home():
     return {"Data": "Test"}
 
+@app.post("/singup")
+async def user_signup(user : UserIn):
+    response = await check_if_user()
 
 @app.get("/api/todo")
 async def get_todo():

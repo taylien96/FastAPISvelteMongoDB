@@ -15,6 +15,11 @@ dbUsers = client.Users
 collectionUsers = dbUsers.profiles
 collectionSessions =dbUsers.sessions
 
+async def check_if_user(username):
+    document = await collectionUsers.find_one({"username":username})
+    print(document)
+    return document
+
 
 async def fetch_one_todo(title):
     document = await collectionTodo.find_one({"title":title})
