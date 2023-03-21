@@ -1,4 +1,4 @@
-from model import Item, UpdateItem, Todo
+from model import Item, UpdateItem, Todo, UserIn
 from dotenv import load_dotenv
 import os
 import motor.motor_asyncio
@@ -20,6 +20,10 @@ async def check_if_user(username):
     print(document)
     return document
 
+async def create_user(username, password):
+    result = await collectionUsers.insert_one({"username": username, "password":password})
+    print(result)
+    return username
 
 async def fetch_one_todo(title):
     document = await collectionTodo.find_one({"title":title})

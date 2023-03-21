@@ -15,7 +15,7 @@ def signJWT(userID : str):
         "userID" : userID,
         "expiry" : time.time() + 3600000,
     }
-    token = jwt.encode(payload, JWT_SECRET, algorith=JWT_ALG)
+    token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALG)
     return token_response(token)
 
 def decodeJWT(token :str):

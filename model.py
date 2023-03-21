@@ -16,7 +16,7 @@ class UpdateItem(BaseModel):
     brand: Optional[str] = None
 
 class UserBase(BaseModel):
-    username = str
+    username: str
 
 class UserIn(UserBase):
-    password = str
+    password: str

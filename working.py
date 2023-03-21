@@ -16,7 +16,9 @@ from database import(
     fetch_one_todo,
     create_todo,
     update_todo,
-    remove_todo
+    remove_todo,
+    check_if_user,
+    create_user
 )
 
 origins = ['https://localhost:3000']
@@ -37,9 +39,15 @@ inventory = {
 def home():
     return {"Data": "Test"}
 
-@app.post("/singup")
-async def user_signup(user : UserIn):
-    response = await check_if_user()
+@app.post("api/signup")
+async def user_signup(username : str, password :str):
+    response = await check_if_user(username)
+    if response:
+        raise HTTPException(409, f"the name is taken")
+    create = await create_user(username, password)
+    if create:
+            return signJWT(create)
+    raise HTTPException(400, "something went wrong, bad request")
 
 @app.get("/api/todo")
 async def get_todo():

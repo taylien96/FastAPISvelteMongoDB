@@ -1,14 +1,34 @@
 <script>
     export let title = "Login";
-    export let onSubmit;
+    import { loggedIn } from './Store.js'
+    
+    let url="tbt"
+    let notSignedIn =true;
+    loggedIn.subscribe(value => {
+		notSignedIn = value;
+	});
   
     let username = "";
     let password = "";
   
     function handleSubmit() {
-      onSubmit({ username, password });
+      onSubmit(username, password );
       username = "";
       password = "";
+    }
+    async function onSubmit(u, p){
+        try{
+        let login = await fetch(url, {method: 'POST', headers: {
+        'Content-Type': 'application/json'
+        },
+        body: 
+        JSON.stringify({ username, password })
+        })
+        console.log(login)
+        
+        }catch(error){
+            console.log(error)
+        }
     }
   </script>
 
