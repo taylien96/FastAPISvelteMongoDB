@@ -1,13 +1,6 @@
 <script>
     export let title = "Login";
-    import { loggedIn } from './Store.js'
-    
-    let url="tbt"
-    let notSignedIn =true;
-    loggedIn.subscribe(value => {
-		notSignedIn = value;
-	});
-  
+    import { loggedIn } from '../routes/Store.js'
     let username = "";
     let password = "";
   

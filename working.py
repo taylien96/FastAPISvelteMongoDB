@@ -39,15 +39,22 @@ inventory = {
 def home():
     return {"Data": "Test"}
 
-@app.post("api/signup")
-async def user_signup(username : str, password :str):
-    response = await check_if_user(username)
-    if response:
-        raise HTTPException(409, f"the name is taken")
-    create = await create_user(username, password)
-    if create:
-            return signJWT(create)
-    raise HTTPException(400, "something went wrong, bad request")
+@app.post("/api/signup")
+async def user_signup(user : UserIn):
+    response = await check_if_user(user.username)
+    print(response)
+    if response == None:
+        create = await create_user(user.dict())
+        if create:
+            return signJWT(user.username)
+        raise HTTPException(400, "something went wrong, bad request")
+    raise HTTPException(409, f"the name is taken")
+    
+    
+
+
+
+
 
 @app.get("/api/todo")
 async def get_todo():

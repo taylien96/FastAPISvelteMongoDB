@@ -20,10 +20,11 @@ async def check_if_user(username):
     print(document)
     return document
 
-async def create_user(username, password):
-    result = await collectionUsers.insert_one({"username": username, "password":password})
-    print(result)
-    return username
+async def create_user(user):
+    print("before")
+    result = await collectionUsers.insert_one(user)
+    print("after")
+    return result
 
 async def fetch_one_todo(title):
     document = await collectionTodo.find_one({"title":title})
