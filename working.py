@@ -50,6 +50,8 @@ async def user_signup(user : UserIn):
         raise HTTPException(400, "something went wrong, bad request")
     raise HTTPException(409, f"the name is taken")
     
+@app.post("/api/login")
+async def user_login(user: UserIn):
     
 
 
