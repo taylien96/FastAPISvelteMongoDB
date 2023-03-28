@@ -39,7 +39,7 @@ inventory = {
 def home():
     return {"Data": "Test"}
 
-@app.post("/api/signup")
+@app.post("/api/signup", response_model=UserBase)
 async def user_signup(user : UserIn):
     response = await check_if_user(user.username)
     print(response)
@@ -52,7 +52,7 @@ async def user_signup(user : UserIn):
     
 @app.post("/api/login")
 async def user_login(user: UserIn):
-    
+
 
 
 
