@@ -18,7 +18,8 @@ from database import(
     update_todo,
     remove_todo,
     check_if_user,
-    create_user
+    create_user,
+    login_check
 )
 
 origins = ['https://localhost:3000']
@@ -35,6 +36,7 @@ inventory = {
     
 }
 
+
 @app.get("/")
 def home():
     return {"Data": "Test"}
@@ -42,7 +44,7 @@ def home():
 @app.post("/api/signup", response_model=UserBase)
 async def user_signup(user : UserIn):
     response = await check_if_user(user.username)
-    print(response)
+    print(response) 
     if response == None:
         create = await create_user(user.dict())
         if create:
@@ -52,6 +54,11 @@ async def user_signup(user : UserIn):
     
 @app.post("/api/login")
 async def user_login(user: UserIn):
+    response = await login_check(user.username, user.password)
+    if response:
+        return signJWT(user.username)
+    else:
+        return {"Error":"Invalid login credentials"}
 
 
 
